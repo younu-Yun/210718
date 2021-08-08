@@ -10,6 +10,11 @@ class Router {
     this.renderPage()
   }
 
+  push(pathname) {
+    //ex. /main, /signin 등등
+    window.location.hash = pathname.replace('/', '#')
+  }
+
   bindEvent() {
     //이벤트를 추가는 바로 실행되지 않고, 후에 이벤트가 발생하면 실행된다.
     window.onhashchange = () => {
@@ -31,7 +36,11 @@ class Router {
     }
 
     //페이지가 있을때 (path에 맞는 페이지가 있을때)
-    new PageComponent()
+    new PageComponent({
+      router: {
+        push: this.push,
+      },
+    })
 
     // console.log('path', path)
   }
